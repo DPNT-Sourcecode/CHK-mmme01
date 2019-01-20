@@ -56,7 +56,7 @@ def calculate_offers(stock, cum_sum):
             continue
 
         offer_qty = SPECIAL_OFFERS[item]['offer_qty']
-        if offer_qty >= qty and SPECIAL_OFFERS[item]['offer_on'] in stock.keys():
+        if qty >= offer_qty and SPECIAL_OFFERS[item]['offer_on'] in stock.keys():
             if qty % offer_qty == 0:
                 # so we subtract the offers and then minus a qty from the offer on
                 # could be an issue here with us buying more on item E deals than we've of D
@@ -102,6 +102,6 @@ if __name__ == '__main__':
     print checkout('ABCa')
     print checkout('AxA')
     # print checkout('EED')
-    print checkout('EEDEED')
+    print checkout('EEDEEDE')
 
 
