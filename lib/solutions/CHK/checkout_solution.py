@@ -40,18 +40,17 @@ def checkout(skus):
 
 def calculate_total(stock):
     stock, total = calculate_offers(stock)
-    total = calculate_deals(total)
+    total = calculate_deals(stock, total)
 
     return total
 
-def calculat_offers(stock):
+def calculate_offers(stock, cum_sum):
     """
     Return how much we've saved with offers and adjust any stock amounts if needed.
 
     :param stock:
     :return:
     """
-    cum_sum = 0
     for (item, qty) in stock.items():
         if item not in SPECIAL_OFFERS:
             continue
@@ -59,12 +58,14 @@ def calculat_offers(stock):
         offer_qty = SPECIAL_OFFERS[item]['offer_qty']
         if offer_qty >= qty and SPECIAL_OFFERS[item]['offer_on'] in stock.keys():
             if qty % offer_qty == 0:
-                # so we subtract the offers and then
-                # could be an issue here with us buying more on item E than we've of D
+                # so we subtract the offers and then minus a qty from the offer on
+                # could be an issue here with us buying more on item E deals than we've of D
                 cum_sum -= (qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
                 stock[SPECIAL_OFFERS[item]['offer_on']] = stock[SPECIAL_OFFERS[item]['offer_on']] - (qty / offer_qty)
             else:
-
+                temp_qty = qty - (qty % offer_qty)
+                cum_sum -= (temp_qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
+                stock[SPECIAL_OFFERS[item]['offer_on']] = stock[SPECIAL_OFFERS[item]['offer_on']] - (temp_qty / offer_qty)
 
     return stock, cum_sum
 
@@ -98,4 +99,5 @@ if __name__ == '__main__':
     print checkout('')
     print checkout('ABCa')
     print checkout('AxA')
+    print checkout('EED')
 
