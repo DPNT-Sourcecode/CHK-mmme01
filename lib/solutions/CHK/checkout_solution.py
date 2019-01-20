@@ -5,9 +5,12 @@ AVAILABLE_STOCK = {
     'B': {'price': 30, 'deal_qty': 2, 'deal_px': 45 },
     'C': {'price': 20},
     'D': {'price': 15},
+    'E': {'price': 40}
 }
 
-
+SPECIAL_OFFERS = {
+    'E': {'offer_qty': 2, 'offer_on': 'D', 'offer_px': 0}
+}
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -36,6 +39,24 @@ def checkout(skus):
     return calculate_total(items_count) if items_count else 0
 
 def calculate_total(stock):
+    stock, price = calculate_offers(stock)
+
+def calculat_offers(stock):
+    cum_sum = 0
+    for (item, qty) in stock.items():
+        if item not in SPECIAL_OFFERS:
+            continue
+
+        offer_qty = SPECIAL_OFFERS[item]['offer_qty']
+        if offer_qty >= qty and SPECIAL_OFFERS[item]['offer_on'] in stock.keys():
+            if qty % offer_qty == 0:
+                pass
+
+    return cum_sum
+
+
+
+def calculate_deals(stock):
     cum_sum = 0
     for (item, qty) in stock.items():
         item_px = AVAILABLE_STOCK[item]['price']
