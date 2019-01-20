@@ -1,6 +1,6 @@
 
 
-VALID_ENTRIES = {
+AVAILABLE_STOCK = {
     'A': 50,
     'B': 30,
     'C': 20,
@@ -21,7 +21,6 @@ def checkout(skus):
     items_count = {}
     skus = skus.upper()
 
-
     for item in skus:
         if not validate_entry(item):
             print('%s is not a valid entry' % item)
@@ -32,14 +31,19 @@ def checkout(skus):
         else:
             items_count[item] = 1
 
-    calculate_total(items_count)
+    return calculate_total(items_count)
 
 def calculate_total(stock):
+    print stock
+    cum_sum = 0
     for (item, qty) in stock.items():
+        price = AVAILABLE_STOCK[item] * qty
+        cum_sum += price
 
+    return cum_sum
 
 def validate_entry(item):
-    return item in VALID_ENTRIES
+    return item in AVAILABLE_STOCK
 
 if __name__ == '__main__':
-    checkout('abcdabc')
+    print checkout('abcdabc')
