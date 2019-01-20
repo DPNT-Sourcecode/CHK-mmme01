@@ -20,19 +20,20 @@ def checkout(skus):
     :param skus:
     :return:
     """
+
     items_count = {}
 
     for item in skus:
         if not validate_entry(item):
             print('%s is not a valid entry' % item)
-            continue
+            return -1
 
         if item in items_count:
             items_count[item] = items_count[item] + 1
         else:
             items_count[item] = 1
 
-    return calculate_total(items_count) if items_count else -1
+    return calculate_total(items_count) if items_count else 0
 
 def calculate_total(stock):
     cum_sum = 0
@@ -59,4 +60,7 @@ def validate_entry(item):
 
 if __name__ == '__main__':
     print checkout('aaabbb')
+    print checkout('')
+    print checkout('ABCa')
+    print checkout('AxA')
 
