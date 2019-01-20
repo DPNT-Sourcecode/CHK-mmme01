@@ -1,11 +1,13 @@
 
 
 AVAILABLE_STOCK = {
-    'A': 50,
-    'B': 30,
-    'C': 20,
-    'D': 15
+    'A': {'price': 50, 'deal_qty': 3, 'deal_px': 130},
+    'B': {'price': 30, 'deal_qty': 2, 'deal_px': 45 },
+    'C': {'price': 20},
+    'D': {'price': 15},
 }
+
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -37,7 +39,10 @@ def calculate_total(stock):
     print stock
     cum_sum = 0
     for (item, qty) in stock.items():
-        price = AVAILABLE_STOCK[item] * qty
+        if AVAILABLE_STOCK[item].get('deal_qty') > qty:
+            pass
+        else:
+            price = AVAILABLE_STOCK[item] * qty
         cum_sum += price
 
     return cum_sum
@@ -47,3 +52,4 @@ def validate_entry(item):
 
 if __name__ == '__main__':
     print checkout('abcdabc')
+
