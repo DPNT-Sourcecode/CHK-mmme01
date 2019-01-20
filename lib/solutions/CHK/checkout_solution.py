@@ -84,8 +84,10 @@ def calculate_deals(stock, cum_sum):
                     else:
                         price = item_px * (qty % deal_qty)  # price of items not bought within deal
                         price += (qty - (qty % deal_qty)) / deal_qty * deal_px
+
                 else:
                     price = item_px * qty
+                qty -= deal_qty
         else:
             price = item_px * qty
 
@@ -98,10 +100,5 @@ def validate_entry(item):
     return item in AVAILABLE_STOCK
 
 if __name__ == '__main__':
-    print checkout('aaabbb')
-    print checkout('')
-    print checkout('ABCa')
-    print checkout('AxA')
-    # print checkout('EED')
-    print checkout('EEDEEDE')
+
     print checkout('AAAAA')
