@@ -21,22 +21,19 @@ def checkout(skus):
     :return:
     """
     items_count = {}
-    skus = skus.upper()
 
     for item in skus:
         if not validate_entry(item):
             print('%s is not a valid entry' % item)
-            return -1
 
         if item in items_count:
             items_count[item] = items_count[item] + 1
         else:
             items_count[item] = 1
 
-    return calculate_total(items_count)
+    return calculate_total(items_count) if items_count else -1
 
 def calculate_total(stock):
-    print stock
     cum_sum = 0
     for (item, qty) in stock.items():
         item_px = AVAILABLE_STOCK[item]['price']
