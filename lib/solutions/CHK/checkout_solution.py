@@ -39,14 +39,15 @@ def calculate_total(stock):
     print stock
     cum_sum = 0
     for (item, qty) in stock.items():
-        item_px = AVAILABLE_STOCK[item]
+        item_px = AVAILABLE_STOCK[item]['price']
         if AVAILABLE_STOCK[item].get('deal_qty'):
             deal_qty = AVAILABLE_STOCK[item].get('deal_qty')
             if qty >= deal_qty:
                 if qty % deal_qty == 0:
                     price = AVAILABLE_STOCK[item]['deal_px'] * (qty / deal_qty)
                 else:
-                    price =
+                    price = item_px * (qty % deal_qty) # price of items not bought within deal
+                    price += (qty - (qty % deal_qty)) / deal_qty * AVAILABLE_STOCK[item]['deal_px']
             else:
                 price = item_px * qty
         else:
@@ -60,3 +61,4 @@ def validate_entry(item):
 
 if __name__ == '__main__':
     print checkout('abcdabc')
+    print checkout('aaabbb')
