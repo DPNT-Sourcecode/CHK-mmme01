@@ -81,13 +81,15 @@ def calculate_deals(stock, cum_sum):
                 if qty >= deal_qty:
                     if qty % deal_qty == 0:
                         price = deal_px * (qty / deal_qty)
+
                     else:
                         price = item_px * (qty % deal_qty)  # price of items not bought within deal
                         price += (qty - (qty % deal_qty)) / deal_qty * deal_px
+                    qty -= deal_qty
 
                 else:
                     price = item_px * qty
-                qty -= deal_qty
+                    qty = 0
                 if not qty:
                     break
         else:
@@ -103,6 +105,6 @@ def validate_entry(item):
 
 if __name__ == '__main__':
     print checkout("A") #expected: 50, got: -200
-    #print checkout('ABCDE')#- {"method": "checkout", "params": ["ABCDE"], "id": "CHK_R2_012"}, expected: 155, got: -95
-    #print checkout('AAAAA')
+    print checkout('ABCDE')#- {"method": "checkout", "params": ["ABCDE"], "id": "CHK_R2_012"}, expected: 155, got: -95
+    print checkout('AAAAA')
 
