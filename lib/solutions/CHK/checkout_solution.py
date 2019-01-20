@@ -63,4 +63,3 @@ if __name__ == '__main__':
     print checkout('')
     print checkout('ABCa')
     print checkout('AxA')
-
