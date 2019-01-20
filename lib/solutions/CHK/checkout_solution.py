@@ -101,6 +101,7 @@ if __name__ == '__main__':
     print checkout('')
     print checkout('ABCa')
     print checkout('AxA')
-    print checkout('EED')
+    # print checkout('EED')
+    print checkout('EEDEED')
 
 
