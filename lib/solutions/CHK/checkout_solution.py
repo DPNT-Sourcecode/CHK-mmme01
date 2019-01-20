@@ -39,7 +39,10 @@ def checkout(skus):
     return calculate_total(items_count) if items_count else 0
 
 def calculate_total(stock):
-    stock, price = calculate_offers(stock)
+    stock, total = calculate_offers(stock)
+    total = calculate_deals(total)
+
+    return total
 
 def calculat_offers(stock):
     """
@@ -57,10 +60,13 @@ def calculat_offers(stock):
         if offer_qty >= qty and SPECIAL_OFFERS[item]['offer_on'] in stock.keys():
             if qty % offer_qty == 0:
                 # so we subtract the offers and then
+                # could be an issue here with us buying more on item E than we've of D
                 cum_sum -= (qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
                 stock[SPECIAL_OFFERS[item]['offer_on']] = stock[SPECIAL_OFFERS[item]['offer_on']] - (qty / offer_qty)
+            else:
 
-    return cum_sum
+
+    return stock, cum_sum
 
 
 
@@ -92,3 +98,4 @@ if __name__ == '__main__':
     print checkout('')
     print checkout('ABCa')
     print checkout('AxA')
+
