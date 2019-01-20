@@ -9,7 +9,7 @@ AVAILABLE_STOCK = {
 }
 
 SPECIAL_OFFERS = {
-    'E': {'offer_qty': 2, 'offer_on': 'D', 'offer_px': 0}
+    'E': {'offer_qty': 2, 'offer_on': 'D', 'offer_px_delta': AVAILABLE_STOCK['D']['price']}
 }
 
 # noinspection PyUnusedLocal
@@ -42,6 +42,12 @@ def calculate_total(stock):
     stock, price = calculate_offers(stock)
 
 def calculat_offers(stock):
+    """
+    Return how much we've saved with offers and adjust any stock amounts if needed.
+
+    :param stock:
+    :return:
+    """
     cum_sum = 0
     for (item, qty) in stock.items():
         if item not in SPECIAL_OFFERS:
@@ -50,7 +56,9 @@ def calculat_offers(stock):
         offer_qty = SPECIAL_OFFERS[item]['offer_qty']
         if offer_qty >= qty and SPECIAL_OFFERS[item]['offer_on'] in stock.keys():
             if qty % offer_qty == 0:
-                pass
+                # so we subtract the offers and then
+                cum_sum -= (qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
+                stock[SPECIAL_OFFERS[item]['offer_on']] = stock[SPECIAL_OFFERS[item]['offer_on']] - (qty / offer_qty)
 
     return cum_sum
 
