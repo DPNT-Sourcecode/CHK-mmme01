@@ -5,7 +5,7 @@ AVAILABLE_STOCK = {
     'B': {'price': 30, 'deal_qty': 2, 'deal_px': 45 },
     'C': {'price': 20},
     'D': {'price': 15},
-    'E': {'price': 40}
+    'E': {'price': 40},
 }
 
 SPECIAL_OFFERS = {
@@ -39,8 +39,8 @@ def checkout(skus):
     return calculate_total(items_count) if items_count else 0
 
 def calculate_total(stock):
-    stock, total = calculate_offers(stock)
-    total = calculate_deals(stock, total)
+    stock, total = calculate_offers(stock, 0)
+    stock, total = calculate_deals(stock, total)
 
     return total
 
@@ -60,19 +60,20 @@ def calculate_offers(stock, cum_sum):
             if qty % offer_qty == 0:
                 # so we subtract the offers and then minus a qty from the offer on
                 # could be an issue here with us buying more on item E deals than we've of D
-                cum_sum -= (qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
+                # cum_sum -= (qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
                 stock[SPECIAL_OFFERS[item]['offer_on']] = stock[SPECIAL_OFFERS[item]['offer_on']] - (qty / offer_qty)
             else:
                 temp_qty = qty - (qty % offer_qty)
-                cum_sum -= (temp_qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
+                # cum_sum -= (temp_qty / offer_qty) * SPECIAL_OFFERS[item]['offer_px_delta']
                 stock[SPECIAL_OFFERS[item]['offer_on']] = stock[SPECIAL_OFFERS[item]['offer_on']] - (temp_qty / offer_qty)
 
+    print stock, cum_sum
     return stock, cum_sum
 
 
 
-def calculate_deals(stock):
-    cum_sum = 0
+def calculate_deals(stock, cum_sum):
+
     for (item, qty) in stock.items():
         item_px = AVAILABLE_STOCK[item]['price']
         if AVAILABLE_STOCK[item].get('deal_qty'):
@@ -89,7 +90,8 @@ def calculate_deals(stock):
             price = item_px * qty
         cum_sum += price
 
-    return cum_sum
+    print stock, cum_sum
+    return stock, cum_sum
 
 def validate_entry(item):
     return item in AVAILABLE_STOCK
@@ -100,4 +102,5 @@ if __name__ == '__main__':
     print checkout('ABCa')
     print checkout('AxA')
     print checkout('EED')
+
 
