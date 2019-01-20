@@ -88,6 +88,8 @@ def calculate_deals(stock, cum_sum):
                 else:
                     price = item_px * qty
                 qty -= deal_qty
+                if not qty:
+                    break
         else:
             price = item_px * qty
 
@@ -102,3 +104,4 @@ def validate_entry(item):
 if __name__ == '__main__':
 
     print checkout('AAAAA')
+
