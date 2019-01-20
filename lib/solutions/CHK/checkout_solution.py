@@ -28,7 +28,18 @@ def checkout(skus):
             return -1
 
         if item in items_count:
+            items_count[item] = items_count[item] + 1
+        else:
+            items_count[item] = 1
+
+    calculate_total(items_count)
+
+def calculate_total(stock):
+    for (item, qty) in stock.items():
 
 
 def validate_entry(item):
-    return item in VALID_ENTRIES.keys()
+    return item in VALID_ENTRIES
+
+if __name__ == '__main__':
+    checkout('abcdabc')
