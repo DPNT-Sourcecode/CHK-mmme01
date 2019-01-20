@@ -39,8 +39,12 @@ def calculate_total(stock):
     print stock
     cum_sum = 0
     for (item, qty) in stock.items():
-        if AVAILABLE_STOCK[item].get('deal_qty') > qty:
-            pass
+        if AVAILABLE_STOCK[item].get('deal_qty'):
+            deal_qty = AVAILABLE_STOCK[item].get('deal_qty')
+            if qty >= deal_qty:
+
+            else:
+                price = AVAILABLE_STOCK[item] * qty
         else:
             price = AVAILABLE_STOCK[item] * qty
         cum_sum += price
@@ -52,4 +56,5 @@ def validate_entry(item):
 
 if __name__ == '__main__':
     print checkout('abcdabc')
+
 
