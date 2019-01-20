@@ -102,6 +102,7 @@ def validate_entry(item):
     return item in AVAILABLE_STOCK
 
 if __name__ == '__main__':
-
-    print checkout('AAAAA')
+    print checkout("A") #expected: 50, got: -200
+    #print checkout('ABCDE')#- {"method": "checkout", "params": ["ABCDE"], "id": "CHK_R2_012"}, expected: 155, got: -95
+    #print checkout('AAAAA')
 
