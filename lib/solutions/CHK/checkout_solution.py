@@ -104,7 +104,10 @@ def validate_entry(item):
     return item in AVAILABLE_STOCK
 
 if __name__ == '__main__':
-    print checkout("A") #expected: 50, got: -200
-    print checkout('ABCDE')#- {"method": "checkout", "params": ["ABCDE"], "id": "CHK_R2_012"}, expected: 155, got: -95
+    # print checkout("A") #expected: 50, got: -200
+    # print checkout('ABCDE')#- {"method": "checkout", "params": ["ABCDE"], "id": "CHK_R2_012"}, expected: 155, got: -95
+    print checkout('AAA')# {"method": "checkout", "params": ["AAA"], "id": "CHK_R2_015"}, expected: 130, got: 150
+    print checkout('AAAA')# - {"method": "checkout", "params": ["AAAA"], "id": "CHK_R2_016"}, expected: 180, got: 200
+    print checkout('AAAAAA')# - {"method": "checkout", "params": ["AAAAAA"], "id": "CHK_R2_018"}, expected: 250, got: 50
     print checkout('AAAAA')
 
