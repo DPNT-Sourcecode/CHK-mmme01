@@ -25,6 +25,7 @@ def checkout(skus):
     for item in skus:
         if not validate_entry(item):
             print('%s is not a valid entry' % item)
+            continue
 
         if item in items_count:
             items_count[item] = items_count[item] + 1
@@ -58,3 +59,4 @@ def validate_entry(item):
 
 if __name__ == '__main__':
     print checkout('aaabbb')
+
