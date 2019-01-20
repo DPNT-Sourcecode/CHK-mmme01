@@ -2,7 +2,7 @@
 
 AVAILABLE_STOCK = {
     'A': {'price': 50, 'deal_qtys': [5, 3], 'deal_px': [200, 130]},
-    'B': {'price': 30, 'deal_qtys': [2],    'deal_px': [45] },
+    'B': {'price': 30, 'deal_qtys': [2],    'deal_px': [45], },
     'C': {'price': 20},
     'D': {'price': 15},
     'E': {'price': 40},
@@ -77,17 +77,18 @@ def calculate_deals(stock, cum_sum):
     for (item, qty) in stock.items():
         item_px = AVAILABLE_STOCK[item]['price']
         if AVAILABLE_STOCK[item].get('deal_qtys'):
-            for deal_qty in AVAILABLE_STOCK[item].get('deal_qtys'):
+            for (deal_qty, deal_px) in zip(AVAILABLE_STOCK[item].get('deal_qtys'), AVAILABLE_STOCK[item].get('deal_px')):
                 if qty >= deal_qty:
                     if qty % deal_qty == 0:
-                        price = AVAILABLE_STOCK[item]['deal_px'] * (qty / deal_qty)
+                        price = deal_px * (qty / deal_qty)
                     else:
                         price = item_px * (qty % deal_qty)  # price of items not bought within deal
-                        price += (qty - (qty % deal_qty)) / deal_qty * AVAILABLE_STOCK[item]['deal_px']
+                        price += (qty - (qty % deal_qty)) / deal_qty * deal_px
                 else:
                     price = item_px * qty
         else:
             price = item_px * qty
+
         cum_sum += price
 
     print stock, cum_sum
