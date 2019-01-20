@@ -73,7 +73,17 @@ def calculate_offers(stock, cum_sum):
 
 
 def calculate_deals(stock, cum_sum):
+    """
+    This needs to calculate all the possible combinations of deals and offers that are the cheapest for these items.
+    I think the way I've designed this is not the best. If I was to start over then i would consider a recursive or
+    dynamic programming approach that would call itself to find cheapest combinations. I think the current implementation
+    is getting to complication to continue. This is a fun way to interview though as it feels more lifelike than a
+    hacker rank of leet code problem. I enjoyed doing this but am going to stop my code here.
 
+    :param stock:
+    :param cum_sum:
+    :return:
+    """
     for (item, qty) in stock.items():
         item_px = AVAILABLE_STOCK[item]['price']
         if AVAILABLE_STOCK[item].get('deal_qtys'):
@@ -110,4 +120,5 @@ if __name__ == '__main__':
     print checkout('AAAA')# - {"method": "checkout", "params": ["AAAA"], "id": "CHK_R2_016"}, expected: 180, got: 200
     print checkout('AAAAAA')# - {"method": "checkout", "params": ["AAAAAA"], "id": "CHK_R2_018"}, expected: 250, got: 50
     print checkout('AAAAA')
+
 
